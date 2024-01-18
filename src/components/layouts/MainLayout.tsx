@@ -1,37 +1,22 @@
-import { Layout, Menu, MenuProps, theme } from "antd";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Layout, Menu, theme } from "antd";
 import { FC } from "react";
-import { Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items: MenuProps["items"] = [
-  {
-    key: "Dashboard",
-    label: "Dashboard",
-  },
-  {
-    key: "Service",
-    label: "Service",
-    children: [
-      {
-        key: "Doctors",
-        label: "Doctors",
-      },
-      {
-        key: "Diseases",
-        label: "Diseases",
-      },
-      {
-        key: "Specializations",
-        label: "Specializations",
-      },
-    ],
-  },
-  {
-    key: "Settings",
-    label: "Settings",
-  },
-];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const items = [
+//   UserOutlined,
+//   VideoCameraOutlined,
+//   UploadOutlined,
+//   UserOutlined,
+// ].map((icon, index) => ({
+//   key: String(index + 1),
+//   icon: createElement(icon),
+//   /* problem comes from here. when I add Navlink in the below line. but if remove navlink and provide only string, it works. But I need to add navlink */
+//   label: <NavLink to="/">{`nav ${index + 1}`}</NavLink>,
+// }));
 
 const MainLayout: FC = () => {
   const {
@@ -39,29 +24,30 @@ const MainLayout: FC = () => {
   } = theme.useToken();
 
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout>
+      {/* //* slider section */}
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
-          console.log(broken);
+          // console.log(broken);
         }}
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
       >
-        <div className="text-lg text-center m-2 text-slate-500 font-mono">
-          HMS
-        </div>
+        <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={items}
-        />
+          // items={navitems}
+        ></Menu>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0 }} />
+        {/* //! header section */}
+        <Header style={{ padding: 0, background: colorBgContainer }} />
+        {/* //! main content */}
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
@@ -71,9 +57,10 @@ const MainLayout: FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <Outlet />
+            <NavLink to="/">Home</NavLink>
           </div>
         </Content>
+        {/* //! Footer section */}
         <Footer style={{ textAlign: "center" }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
         </Footer>
