@@ -1,22 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { FC } from "react";
+import { FC, createElement } from "react";
 import { NavLink } from "react-router-dom";
+import { adminPath } from "../../routes/adminPath";
+import { generateMenuItems } from "../../utils/nav/sideNavGenerator";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// const items = [
-//   UserOutlined,
-//   VideoCameraOutlined,
-//   UploadOutlined,
-//   UserOutlined,
-// ].map((icon, index) => ({
-//   key: String(index + 1),
-//   icon: createElement(icon),
-//   /* problem comes from here. when I add Navlink in the below line. but if remove navlink and provide only string, it works. But I need to add navlink */
-//   label: <NavLink to="/">{`nav ${index + 1}`}</NavLink>,
-// }));
+const items = [
+  UserOutlined,
+  VideoCameraOutlined,
+  UploadOutlined,
+  UserOutlined,
+].map((icon, index) => ({
+  key: String(index + 1),
+  icon: createElement(icon),
+
+  label: <NavLink to="/">{`nav ${index + 1}`}</NavLink>,
+}));
 
 const MainLayout: FC = () => {
   const {
@@ -41,8 +47,8 @@ const MainLayout: FC = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          // items={navitems}
-        ></Menu>
+          items={generateMenuItems(adminPath)}
+        />
       </Sider>
       <Layout>
         {/* //! header section */}

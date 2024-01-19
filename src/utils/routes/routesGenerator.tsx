@@ -2,20 +2,27 @@
 
 import { ReactNode } from "react";
 
-export type TRouterPath = {
-  name?: string;
+export type TRoute = {
   path?: string;
   element?: ReactNode;
-  children?: TRouterPath[];
+  // name?: string;
+  children?: TRoute[];
 };
 
-const routesGenerator = (routesPath: TRouterPath[]) => {
-  return routesPath.reduce((acc: TRouterPath[], item) => {
+export type TUserPath = {
+  path?: string;
+  element?: ReactNode;
+  name?: string;
+  children?: TUserPath[];
+};
+
+const routesGenerator = (routesPath: TUserPath[]) => {
+  return routesPath.reduce((acc: TRoute[], item) => {
     if (!item?.path) {
       return acc;
     }
 
-    const routeItem: TRouterPath = {
+    const routeItem: TRoute = {
       path: item?.path,
       element: item?.element,
     };
