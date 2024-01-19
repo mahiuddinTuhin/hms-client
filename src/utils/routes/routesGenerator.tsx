@@ -1,43 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { ReactNode } from "react";
-
-export type TRoute = {
-  path?: string;
-  element?: ReactNode;
-  // name?: string;
-  children?: TRoute[];
-};
-
 export type TUserPath = {
-  path?: string;
-  element?: ReactNode;
   name?: string;
+  path?: string;
+  element?: any;
   children?: TUserPath[];
 };
 
-const routesGenerator = (routesPath: TUserPath[]) => {
-  return routesPath.reduce((acc: TRoute[], item) => {
-    if (!item?.path) {
-      return acc;
+export const routesGenerator = (items: TUserPath[]): TUserPath[] => {
+  const routes = items?.map((item: TUserPath) => {
+    if (item?.path === "create-admin") {
+      console.log({ element: item?.element });
     }
-
-    const routeItem: TRoute = {
+    const routeItem: TUserPath = {
       path: item?.path,
       element: item?.element,
+      children:
+        item?.children && item?.children?.length > 0
+          ? routesGenerator(item?.children)
+          : undefined,
     };
 
-    if (item?.children) {
-      routeItem.children = item.children.map((child) => ({
-        path: child?.path,
-        element: child?.element,
-      }));
-    }
+    return routeItem;
+  });
 
-    acc.push(routeItem);
-
-    return acc;
-  }, []);
+  return routes;
 };
-
-export default routesGenerator;

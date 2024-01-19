@@ -7,14 +7,6 @@ import { generateMenuItems } from "../../utils/nav/sideNavGenerator";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const menuItemsHandler = () => {
-  const items = generateMenuItems(adminPath, "admin");
-
-  // console.log({ items });
-
-  return items;
-};
-
 const MainLayout: FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -38,7 +30,7 @@ const MainLayout: FC = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={menuItemsHandler()}
+          items={generateMenuItems(adminPath, "admin")}
         />
       </Sider>
       <Layout>

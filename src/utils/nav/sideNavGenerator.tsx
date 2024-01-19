@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export type TMenuItem = {
   name: string;
   path?: string;
-  role?: string;
+  // role?: string;
   icon?: ReactNode;
   children?: TMenuItem[];
 };
@@ -26,7 +26,7 @@ export const generateMenuItems = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return items.map((item, index) => {
     const fullPath = `${parentPath}/${item?.path}`.replace(/\/+/g, "/");
-    console.log({ parentRole, fullPath });
+    // console.log({ parentRole, fullPath });
     const rolePath = parentRole ? `/${parentRole}${fullPath}` : fullPath;
     // console.log({ rolePath });
 
