@@ -38,7 +38,7 @@ export const generateRoutes2 = (data: TRouteItem[]): RouteObject[] => {
     },
     {
       path: "*",
-      element: <h1>Not found</h1>,
+      element: <App />,
     },
   ];
 };
