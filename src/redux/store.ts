@@ -39,3 +39,6 @@ export type TAppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
 export default store;
+
+export const userCurrentToken = (state: TRootState) => state.auth.userToken;
+export const userCurrentUser = (state: TRootState) => state.auth.user;

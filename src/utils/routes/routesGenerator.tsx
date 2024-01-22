@@ -8,9 +8,9 @@ export type TUserPath = {
 
 export const routesGenerator = (items: TUserPath[]): TUserPath[] => {
   const routes = items?.map((item: TUserPath) => {
-    if (item?.path === "create-admin") {
-      console.log({ element: item?.element });
-    }
+    // if (item?.path === "create-admin") {
+    //   console.log({ element: item?.element });
+    // }
     const routeItem: TUserPath = {
       path: item?.path,
       element: item?.element,
