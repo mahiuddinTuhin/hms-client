@@ -23,7 +23,7 @@ const Login: FC = () => {
     const res = await login({ id: email, password }).unwrap();
     const token = res.data.accessToken;
     const decoded: any = verifyJwt(token);
-    dispatch(setUser({ user: decoded?.id, userToken: token }));
+    dispatch(setUser({ user: decoded, userToken: token }));
   };
 
   return (
