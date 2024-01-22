@@ -2,20 +2,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, FormEvent, useState } from "react";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { setUser } from "../../redux/features/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import verifyJwt from "../../utils/jwt/verifyJwt";
 
 const Login: FC = () => {
   const [email, setEmail] = useState("Adm220124001");
   const [password, setPassword] = useState("P@ss0rd!");
 
-  const [login, { data, error }] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  // const [respondError, setRespondError] = useState("");
 
-  console.log({ data, error });
-  console.log({ email, password });
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [login] = useLoginMutation();
+
+  // console.log({ data, error });
+  // console.log({ respondError });
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login({ id: email, password });
-    // setEmail("");
-    // setPassword("");
+    const res = await login({ id: email, password }).unwrap();
+    const token = res.data.accessToken;
+    const decoded: any = verifyJwt(token);
+    dispatch(setUser({ user: decoded?.id, userToken: token }));
   };
 
   return (
