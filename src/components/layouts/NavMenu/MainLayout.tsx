@@ -1,15 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Layout, theme } from "antd";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
+
+import { toast } from "sonner";
+import { logout } from "../../../redux/features/auth/authSlice";
 import SiderMenu from "./Slider";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const MainLayout: FC = () => {
+  const dispatch = useDispatch();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleLogout = () => {
+    const result = dispatch(logout());
+    toast.error("Sign out", { duration: 2000 });
+  };
 
   return (
     <Layout className="h-screen">
@@ -17,7 +27,11 @@ const MainLayout: FC = () => {
       <SiderMenu />
       <Layout>
         {/* //! header section */}
-        {/* <Header style={{ padding: 0 }} /> */}
+        <Header style={{ padding: 0 }}>
+          <button className="bg-slate-200 px-12" onClick={handleLogout}>
+            Logout
+          </button>
+        </Header>
         {/* //! main content */}
         <Content style={{}}>
           <div

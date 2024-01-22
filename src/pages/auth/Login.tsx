@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
-import { setUser } from "../../redux/features/auth/authSlice";
+import { TUser, setUser } from "../../redux/features/auth/authSlice";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import verifyJwt from "../../utils/jwt/verifyJwt";
 
@@ -10,20 +12,24 @@ const Login: FC = () => {
   const [email, setEmail] = useState("Adm220124001");
   const [password, setPassword] = useState("P@ss0rd!");
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  // const [respondError, setRespondError] = useState("");
 
   const [login] = useLoginMutation();
 
-  // console.log({ data, error });
-  // console.log({ respondError });
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const toastId = toast.warning("Logging in..", { duration: 2000 });
     e.preventDefault();
-    const res = await login({ id: email, password }).unwrap();
-    const token = res.data.accessToken;
-    const decoded: any = verifyJwt(token);
-    dispatch(setUser({ user: decoded, userToken: token }));
+    try {
+      const res = await login({ id: email, password }).unwrap();
+      const token = res.data.accessToken;
+      const user = verifyJwt(token) as TUser;
+      dispatch(setUser({ user, userToken: token }));
+      toast.success("Logged in", { id: toastId, duration: 2000 });
+      navigate(`/${user?.role}/dashboard`);
+    } catch (error) {
+      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+    }
   };
 
   return (
