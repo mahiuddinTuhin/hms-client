@@ -5,6 +5,7 @@ import App from "../App";
 import Login from "../pages/auth/Login";
 import { routesGenerator } from "../utils/routes/routesGenerator";
 import { adminPath } from "./adminPath";
+import { patientPath } from "./patientPath";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ export const router = createBrowserRouter([
     path: "admin",
     element: <App />,
     children: routesGenerator(adminPath),
+  },
+  {
+    path: "patient",
+    element: <App />,
+    children: routesGenerator(patientPath),
   },
   {
     path: "login",

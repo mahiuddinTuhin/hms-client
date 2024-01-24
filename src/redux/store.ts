@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   FLUSH,
   PAUSE,
@@ -19,11 +19,13 @@ const persistConfig = {
 };
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
+const reducer = combineReducers({
+  [baseApi.reducerPath]: baseApi.reducer,
+  auth: persistedAuthReducer,
+});
+
 const store = configureStore({
-  reducer: {
-    [baseApi.reducerPath]: baseApi.reducer,
-    auth: persistedAuthReducer,
-  },
+  reducer,
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({
       serializableCheck: {

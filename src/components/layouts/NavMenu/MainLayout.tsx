@@ -16,8 +16,10 @@ const MainLayout: FC = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  
+
   const handleLogout = () => {
-    const result = dispatch(logout());
+    dispatch(logout());
     toast.error("Sign out", { duration: 2000 });
   };
 
