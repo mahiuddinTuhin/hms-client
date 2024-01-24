@@ -7,20 +7,22 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     /* send token within header with request */
     const token = (getState() as TRootState).auth.userToken;
-
-    // console.log(token);
-
     if (token) {
       headers.set("Authorization", `${token}`);
     }
-
     return headers;
   },
 });
 
+const baseQueryWithToken = async (args, api, extraOptions) => {
+  const result = await baseQuery(args, api, extraOptions);
+
+  console.log(result.error);
+};
+
 const createBaseApi = {
   reducerPath: "baseApi",
-  baseQuery,
+  baseQuery: baseQueryWithToken,
   endpoints: () => ({}),
 };
 
