@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
@@ -23,7 +21,6 @@ export const generateMenuItems = (
   parentRole: string,
   parentPath: string = ""
 ): TEnhancedMenuItem[] => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return items.map((item, index) => {
     const fullPath = `${parentPath}/${item?.path}`.replace(/\/+/g, "/");
     // console.log({ parentRole, fullPath });
