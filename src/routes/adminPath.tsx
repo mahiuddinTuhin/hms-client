@@ -3,12 +3,18 @@ import CreateAdmin from "../components/layouts/CreateAdmin";
 import CreatePatient from "../components/layouts/CreatePatient";
 import Dashboard from "../components/layouts/Dashboard";
 import UserManagement from "../components/layouts/UserManagement";
+import CreateDepartment from "../pages/department/CreateDepartment";
 
 export const adminPath = [
   {
     name: "Dashboard",
     path: "dashboard",
     element: <Dashboard />,
+  },
+  {
+    name: "Create Admin",
+    path: "create-department",
+    element: <CreateDepartment />,
   },
   {
     name: "User Management",
