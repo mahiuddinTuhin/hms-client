@@ -20,11 +20,13 @@ const Login: FC = () => {
     e.preventDefault();
     try {
       const res = await login({ id: email, password }).unwrap();
+
       const token = res.data.accessToken;
       const user = verifyJwt(token) as TUser;
       dispatch(setUser({ user, userToken: token }));
       toast.success("Logged in", { id: toastId, duration: 2000 });
-      navigate(`/${user?.role}/dashboard`);
+      navigate(`/`);
+      // navigate(`/${user?.role}/dashboard`);
     } catch (error) {
       toast.error("Something went wrong", { id: toastId, duration: 2000 });
     }

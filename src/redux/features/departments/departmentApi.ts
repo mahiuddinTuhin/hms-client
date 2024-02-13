@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "../../API/baseApi";
 
 const departmentApi = baseApi.injectEndpoints({
@@ -8,7 +9,15 @@ const departmentApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    createDepartment: builder.mutation({
+      query: (departmentInfo) => ({
+        url: "/admin/create-department",
+        method: "POST",
+        body: departmentInfo,
+      }),
+    }),
   }),
 });
 
-export const { useAllproblemsQuery } = departmentApi;
+export const { useAllproblemsQuery, useCreateDepartmentMutation } =
+  departmentApi;

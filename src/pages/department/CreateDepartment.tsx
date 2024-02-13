@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Form, Input } from "antd";
 import React from "react";
+import { Navigate } from "react-router-dom";
+import { useCreateDepartmentMutation } from "../../redux/features/departments/departmentApi";
 import { TDepartment } from "./interface";
 
 const onFinishFailed = (errorInfo: any) => {
@@ -8,8 +10,15 @@ const onFinishFailed = (errorInfo: any) => {
 };
 
 const CreateDepartment: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const [form] = Form.useForm();
+  const [CreateDepartment] = useCreateDepartmentMutation();
+  const onFinish = async (values: any) => {
+    const result = await CreateDepartment(values);
+
+    if (result) {
+      form.resetFields();
+      <Navigate to="/" />;
+    }
   };
   return (
     <Form
