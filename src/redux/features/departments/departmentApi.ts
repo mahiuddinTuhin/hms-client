@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TDepartment } from "../../../pages/department/interface";
 import { baseApi } from "../../API/baseApi";
 
 const departmentApi = baseApi.injectEndpoints({
@@ -9,12 +11,13 @@ const departmentApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
-    createDepartment: builder.mutation({
+    createDepartment: builder.mutation<TDepartment, Partial<TDepartment>>({
       query: (departmentInfo) => ({
         url: "/admin/create-department",
         method: "POST",
         body: departmentInfo,
       }),
+      transformErrorResponse: (response: any, meta, arg) => response,
     }),
   }),
 });

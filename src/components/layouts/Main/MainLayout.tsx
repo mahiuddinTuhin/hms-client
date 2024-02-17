@@ -3,6 +3,7 @@ import { Button } from "antd";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Toaster } from "sonner";
 import { logout } from "../../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../../redux/hooks/hooks";
 import NavMenu from "../NavMenu/NavMenu";
@@ -21,15 +22,22 @@ const MainLayout: FC = () => {
   // !isLoggedIn && navigate("/login");
 
   return (
-    <div className="flex justify-between ">
-      <NavMenu />
-      <div className="flex ">
-        <h4>{user?.role}</h4>
-        <Button onClick={handleLogout} className="ml-4">
-          Logout
-        </Button>
+    <div className="grid grid-cols-12 ">
+      <div className="col-span-1">
+        <NavMenu />
       </div>
-      <Outlet />
+      <div className="col-span-11">
+        <div className="flex items-center justify-center">
+          <h4>{user?.role}</h4>
+          <Button onClick={handleLogout} className="ml-4">
+            Logout
+          </Button>
+        </div>
+        <div className="min-h-screen mt-12">
+          <Outlet />
+        </div>
+        <Toaster />
+      </div>
     </div>
   );
 };

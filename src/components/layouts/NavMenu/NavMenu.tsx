@@ -9,7 +9,7 @@ const NavMenu: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const menuItems = generateMenuItems(adminPath, "admin");
-  console.log(menuItems[0]);
+
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };

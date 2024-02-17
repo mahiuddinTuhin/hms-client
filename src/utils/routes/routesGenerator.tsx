@@ -29,8 +29,6 @@ export const routesGenerator = (
           : undefined,
     };
 
-    console.log(`/${item?.path}`);
-
     return routeItem;
   });
 

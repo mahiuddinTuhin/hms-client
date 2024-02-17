@@ -138,7 +138,7 @@ export const adminPath = [
     children: [
       {
         name: "About Admin",
-        path: "About admin",
+        path: "About-admin",
         element: <h2>About admin layout</h2>,
       },
     ],
