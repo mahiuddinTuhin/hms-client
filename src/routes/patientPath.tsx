@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Dashboard from "../components/layouts/Dashboard";
 import AllProblems from "../components/layouts/patients/AllProblems";
+import Dashboard from "../pages/dashboard/Dashboard";
 
 export const patientPath = [
   {

@@ -15,12 +15,12 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: routesGenerator(adminPath),
+    children: routesGenerator(adminPath, "admin"),
   },
   {
     path: "patient",
     element: <App />,
-    children: routesGenerator(patientPath),
+    children: routesGenerator(patientPath, "patient"),
   },
   {
     path: "login",

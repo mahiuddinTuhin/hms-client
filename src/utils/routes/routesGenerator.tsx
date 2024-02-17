@@ -6,19 +6,30 @@ export type TUserPath = {
   children?: TUserPath[];
 };
 
-export const routesGenerator = (items: TUserPath[]): TUserPath[] => {
+export const routesGenerator = (
+  items: TUserPath[],
+  parentRole: string,
+  parentPath: string = ""
+): TUserPath[] => {
   const routes = items?.map((item: TUserPath) => {
     // if (item?.path === "create-admin") {
     //   console.log({ element: item?.element });
     // }
+
+    const fullPath = `${parentPath}/${item?.path}`.replace(/\/+/g, "/");
+    // console.log({ parentRole, fullPath });
+    const rolePath = parentRole ? `/${parentRole}${fullPath}` : fullPath;
+
     const routeItem: TUserPath = {
-      path: item?.path,
+      path: rolePath,
       element: item?.element,
       children:
         item?.children && item?.children?.length > 0
-          ? routesGenerator(item?.children)
+          ? routesGenerator(item?.children, parentRole, fullPath)
           : undefined,
     };
+
+    console.log(`/${item?.path}`);
 
     return routeItem;
   });
