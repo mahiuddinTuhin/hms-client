@@ -32,8 +32,6 @@ const baseQueryWithToken: BaseQueryFn<
 
   const auth = (api.getState() as TRootState).auth;
 
-  console.log({ status: result.error?.status });
-
   // * checking unauthorizing issue and then get new access token
   if (result.error?.status === 401) {
     const res = await fetch("http://localhost:8080/api/v1/auth/refresh-token", {

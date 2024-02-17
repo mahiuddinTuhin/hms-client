@@ -81,7 +81,7 @@ const Login: FC = () => {
                 type="submit"
                 className="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none"
               >
-                Signup
+                Login
               </button>
             </div>
             <p className="text-center text-sm text-gray-500">

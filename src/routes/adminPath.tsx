@@ -1,3 +1,5 @@
+import { LuUserCog } from "react-icons/lu";
+import { MdDashboard, MdOutlineAdminPanelSettings } from "react-icons/md";
 import { Outlet } from "react-router-dom";
 import CreateAdmin from "../components/layouts/CreateAdmin";
 import CreatePatient from "../components/layouts/CreatePatient";
@@ -9,17 +11,20 @@ export const adminPath = [
   {
     name: "Dashboard",
     path: "dashboard",
+    icon: <MdDashboard />,
     element: <Dashboard />,
   },
   {
     name: "Create Admin",
     path: "create-department",
     element: <CreateDepartment />,
+    icon: <MdOutlineAdminPanelSettings />,
   },
   {
     name: "User Management",
     path: "user-management",
     element: <UserManagement />,
+    icon: <LuUserCog />,
     children: [
       {
         name: "Create Admin",

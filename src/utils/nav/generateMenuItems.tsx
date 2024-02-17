@@ -30,6 +30,7 @@ export const generateMenuItems = (
     const menuItem: TEnhancedMenuItem = {
       key: item?.name + index,
       label: <Link to={rolePath}>{item?.name}</Link>,
+      icon: item?.icon || undefined,
     };
 
     if (item?.children && item?.children.length > 0) {
