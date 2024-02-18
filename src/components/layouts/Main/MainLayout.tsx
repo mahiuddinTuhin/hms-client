@@ -33,7 +33,7 @@ const MainLayout: FC = () => {
             Logout
           </Button>
         </div>
-        <div className="min-h-screen mt-12">
+        <div className="min-h-screen md:-ml-24">
           <Outlet />
         </div>
         <Toaster />
