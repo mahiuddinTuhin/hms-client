@@ -34,3 +34,31 @@ export type TSpecializations = {
   doctors?: string[];
   department: string;
 };
+
+export type TEducation = {
+  institute: string;
+  degree: string;
+  year: number;
+};
+
+export type TAdmin = {
+  fullName: {
+    firstName: string;
+    middleName: string;
+    lastName: string;
+  };
+  email: string;
+  phone: string;
+  dateOfBirth: string;
+  gender: string;
+  profileImage: string;
+
+  education: TEducation[];
+  address: {
+    presentAddress: string;
+    permanentAddress: string;
+  };
+  isDeleted: boolean;
+  id: string;
+  user: string;
+};

@@ -2,16 +2,17 @@
 import { toast } from "sonner";
 
 const toastError = (isError: any, error: any) => {
-  const err = error?.data?.errors?.map((err: any) => {
-    let path = err?.path[err?.path.length - 1];
-    if (!Array.isArray(err?.path)) {
-      path = Object.keys(err?.path)[0];
-    }
-    const result = `${err?.message} on ${path}`;
-    return result;
-  });
+  const err =
+    error?.data?.errors?.map((err: any) => {
+      let path = err?.path[err?.path.length - 1];
+      if (!Array.isArray(err?.path)) {
+        path = Object.keys(err?.path)[0];
+      }
+      const result = `${err?.message} on ${path}`;
+      return result;
+    }) || null;
 
-  isError && err.map((errItem: string) => toast.error(errItem));
+  (isError && err?.map((errItem: string) => toast.error(errItem))) || null;
 };
 
 export default toastError;

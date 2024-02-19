@@ -3,12 +3,7 @@
 import { Card, Form, Input } from "antd";
 import { TMedicalProblem } from "../department/interface";
 
-function ProblemsForm(setAllProblems: any) {
-  const onFinishproblems = (values: any) => {
-    console.log(values);
-  };
-  const onFinishFailed = () => {};
-
+function ProblemsForm() {
   return (
     <Card style={{ marginTop: 16 }} title="Problem details">
       <Form.Item<TMedicalProblem>
