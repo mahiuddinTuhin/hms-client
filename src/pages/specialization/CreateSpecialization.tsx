@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Form, Input, Select } from "antd";
+import { Button, Card, Form, Input, Select } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -79,50 +79,54 @@ const CreateSpecializationn: React.FC = () => {
           autoComplete="off"
           className="p-4"
         >
-          {/* // !   Specialization Name */}
-          <Form.Item<TSpecializations>
-            label="Specialization Name"
-            name="specializationName"
-            rules={[
-              { required: true, message: "Please input specialization name!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* //  ! Details */}
-          <Form.Item<TSpecializations>
-            label="Details"
-            name="specializationDetails"
-            rules={[
-              { required: true, message: "Please input department details!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
+          <Card title="Specialization Details">
+            {/* // !   Specialization Name */}
+            <Form.Item<TSpecializations>
+              label="Specialization Name"
+              name="specializationName"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input specialization name!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            {/* //  ! Details */}
+            <Form.Item<TSpecializations>
+              label="Details"
+              name="specializationDetails"
+              rules={[
+                { required: true, message: "Please input department details!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item<TSpecializations>
+              label="Department"
+              name="department"
+              // wrapperCol={{ offset: 0, span: 12 }}
+              rules={[
+                { required: true, message: "Please input medical license!" },
+              ]}
+            >
+              {/* <Input /> */}
+              {!isLoading && isSuccess && (
+                <Select
+                  style={{ width: 120 }}
+                  onChange={(value) => setDepartmentId(value)}
+                  options={departments.map((department: TDepartment) => ({
+                    label: department.departmentName,
+                    value: department._id,
+                  }))}
+                />
+              )}
+            </Form.Item>
+          </Card>
           {/* // ! Problems */}
           <ProblemsForm />
 
-          <Form.Item<TSpecializations>
-            label="Department"
-            name="department"
-            // wrapperCol={{ offset: 0, span: 12 }}
-            rules={[
-              { required: true, message: "Please input medical license!" },
-            ]}
-          >
-            {/* <Input /> */}
-            {!isLoading && isSuccess && (
-              <Select
-                style={{ width: 120 }}
-                onChange={(value) => setDepartmentId(value)}
-                options={departments.map((department: TDepartment) => ({
-                  label: department.departmentName,
-                  value: department._id,
-                }))}
-              />
-            )}
-          </Form.Item>
           <Form.Item className="mt-12 flex justify-end ">
             <Button
               type="primary"

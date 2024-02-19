@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input } from "antd";
-import { TMedicalProblem, TSpecializations } from "../department/interface";
+import { Card, Form, Input } from "antd";
+import { TMedicalProblem } from "../department/interface";
 
 function ProblemsForm(setAllProblems: any) {
   const onFinishproblems = (values: any) => {
@@ -10,11 +10,7 @@ function ProblemsForm(setAllProblems: any) {
   const onFinishFailed = () => {};
 
   return (
-    <Form.Item<TSpecializations>
-      label="Problems"
-      name="problems"
-      // wrapperCol={{ offset: 8, span: 16 }}
-    >
+    <Card style={{ marginTop: 16 }} title="Problem details">
       <Form.Item<TMedicalProblem>
         label="Problem Name"
         name="problemName"
@@ -80,7 +76,7 @@ function ProblemsForm(setAllProblems: any) {
       >
         <Input />
       </Form.Item>
-    </Form.Item>
+    </Card>
   );
 }
 
