@@ -11,75 +11,59 @@ import {
   Select,
   Typography,
   Upload,
+  UploadProps,
 } from "antd";
 import React, { useState } from "react";
-import { MdAddAPhoto, MdCancel } from "react-icons/md";
+import { MdCancel, MdUpload } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../components/ui/loader/Loader";
 import { useCreateAdminMutation } from "../../../redux/features/auth/authApi";
 import toastError from "../../../utils/toastError/toastError";
 import { TAdmin } from "../../department/interface";
 
-// const onFinishFailed = (errorInfo: any) => {
-//   console.log("Failed:");
-//   console.log("Failed:", errorInfo);
-// };
-
+const defaultUploadFile: any = {
+  uid: "-1",
+  name: "",
+  status: "done",
+  url: "",
+  // ... other properties
+};
 const CreateAdmin: React.FC = () => {
-  const [date, setDate] = useState([] as any[]);
-  console.log(date);
+  const [imageFile, setImageFile] = useState(defaultUploadFile);
   const [form] = Form.useForm();
   const formData = new FormData();
   const navigate = useNavigate();
-  const [createAdmin, { isError, error }] = useCreateAdminMutation();
+  const [createAdmin, { isError, error, isLoading, isSuccess }] =
+    useCreateAdminMutation();
 
   toastError(isError, error);
-  console.log(error);
 
   // isError && toast.error(error);
   const onFinish = async (values: any) => {
-    console.log(values);
     const { profilePicture, ...data } = values;
 
     formData.append("data", JSON.stringify(data));
-
-    console.log(formData);
+    formData.append("file", imageFile);
 
     const result: any = await createAdmin(formData);
 
-    if (!result?.error) {
-      console.log(result);
+    if (!isLoading && result?.data && result?.data?.success) {
       form.resetFields();
       navigate("/");
     }
   };
 
-  // const props: UploadProps = {
-  //   // action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-  //   listType: "picture",
+  const props: UploadProps = {
+    beforeUpload: (file) => {
+      setImageFile(file);
 
-  //   beforeUpload(file) {
-  //     return new Promise((resolve) => {
-  //       const reader = new FileReader();
-  //       reader.readAsDataURL(file);
-  //       reader.onload = () => {
-  //         const img = document.createElement("img");
-  //         img.src = reader.result as string;
-  //         img.onload = () => {
-  //           const canvas = document.createElement("canvas");
-  //           canvas.width = img.naturalWidth;
-  //           canvas.height = img.naturalHeight;
-  //           const ctx = canvas.getContext("2d")!;
-  //           ctx.drawImage(img, 0, 0);
-  //           ctx.fillStyle = "red";
-  //           ctx.textBaseline = "middle";
-  //           ctx.font = "33px Arial";
-  //           ctx.fillText("Ant Design", 20, 20);
-  //           canvas.toBlob((result) => resolve(result as any));
-  //         };
-  //       };
-  //     });
-  //   },
-  // };
+      return false;
+    },
+  };
+
+  if (isLoading && !isSuccess) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center mt-12 ">
@@ -220,19 +204,13 @@ const CreateAdmin: React.FC = () => {
             {/* // ! profile image */}
 
             <Col lg={8} md={12} xs={24}>
-              <Form.Item label="Upload" valuePropName="profilePicture">
-                <Upload
-                  action="/upload.do"
-                  maxCount={1}
-                  listType="picture-card"
-                >
-                  <button
-                    style={{ border: 0, background: "none" }}
-                    type="button"
-                  >
-                    <MdAddAPhoto />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </button>
+              <Form.Item
+                name="profilePicture"
+                label="profile Picture"
+                valuePropName="file"
+              >
+                <Upload {...props} name="profilePicture" maxCount={1}>
+                  <Button icon={<MdUpload />}>Click to upload</Button>
                 </Upload>
               </Form.Item>
             </Col>
