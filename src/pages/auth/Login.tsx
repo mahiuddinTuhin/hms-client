@@ -5,6 +5,7 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { TUser, setUser } from "../../redux/features/auth/authSlice";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import verifyJwt from "../../utils/jwt/verifyJwt";
+import toastError from "../../utils/toastError/toastError";
 
 const Login: FC = () => {
   const [email, setEmail] = useState("Adm220124001");
@@ -13,7 +14,8 @@ const Login: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [login] = useLoginMutation();
+  const [login, { error, isError }] = useLoginMutation();
+  toastError(isError, error);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     const toastId = toast.warning("Logging in..", { duration: 2000 });
@@ -28,7 +30,7 @@ const Login: FC = () => {
       navigate(`/`);
       // navigate(`/${user?.role}/dashboard`);
     } catch (error) {
-      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+      // toast.error("Something went wrong", { id: toastId, duration: 2000 });
     }
   };
 

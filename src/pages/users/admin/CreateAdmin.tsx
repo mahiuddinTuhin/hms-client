@@ -33,26 +33,24 @@ const CreateAdmin: React.FC = () => {
   const [createAdmin, { isError, error }] = useCreateAdminMutation();
 
   toastError(isError, error);
+  console.log(error);
 
   // isError && toast.error(error);
   const onFinish = async (values: any) => {
     console.log(values);
     const { profilePicture, ...data } = values;
 
-    Object.keys(data).forEach((key) => {
-      formData.append(key, data[key]);
-    });
+    formData.append("data", JSON.stringify(data));
 
     console.log(formData);
 
-    // const result: any = await createAdmin({ data: data, file: profilePicture });
-    // console.log(result);
+    const result: any = await createAdmin(formData);
 
-    // if (!result?.error) {
-    //   // console.log(!result.error);
-    //   form.resetFields();
-    //   navigate("/");
-    // }
+    if (!result?.error) {
+      console.log(result);
+      form.resetFields();
+      navigate("/");
+    }
   };
 
   // const props: UploadProps = {
